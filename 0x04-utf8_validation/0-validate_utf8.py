@@ -25,4 +25,3 @@ def validUTF8(data):
                 return False
             cnt -= 1
     return cnt == 0
-
