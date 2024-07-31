@@ -22,8 +22,12 @@ def find_queen_positions(n, row=0, columns=[], diagonals1=[], diagonals2=[]):
     """Finds all valid positions for the queens."""
     if row < n:
         for col in range(n):
-            if col not in columns and row + col not in diagonals1 and row - col not in diagonals2:
-                yield from find_queen_positions(n, row + 1, columns + [col], diagonals1 + [row + col], diagonals2 + [row - col])
+            if col not in columns and row + col not in diagonals1 and \
+               row - col not in diagonals2:
+                yield from find_queen_positions(
+                    n, row + 1, columns + [col], diagonals1 + [row + col],
+                    diagonals2 + [row - col]
+                )
     else:
         yield columns
 
@@ -31,15 +35,10 @@ def find_queen_positions(n, row=0, columns=[], diagonals1=[], diagonals2=[]):
 def solve_n_queens(n):
     """Solves the N Queens problem and prints all solutions."""
     solutions = []
-    row_index = 0
     for solution in find_queen_positions(n):
-        for col in solution:
-            solutions.append([row_index, col])
-            row_index += 1
-        print(solutions)
-        solutions = []
-        row_index = 0
+        formatted_solution = [[i, col] for i, col in enumerate(solution)]
+        solutions.append(formatted_solution)
+        print(formatted_solution)
 
 
 solve_n_queens(n)
-
