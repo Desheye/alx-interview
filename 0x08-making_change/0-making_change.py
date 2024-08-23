@@ -6,17 +6,18 @@ total amount when provided with a pile of coins
 of different values.
 """
 
+
 def makeChange(coins, total):
     """
     Calculates the minimum number of coins required
     to reach the specified total.
-    
+
     Args:
         coins (list[int]): A list of coin denominations
         (e.g., [1, 5, 10]).
         total (int): The target amount to achieve
         using the given coins.
-    
+
     Returns:
         int: The minimum number of coins needed, or -1
         if the total cannot be reached.
