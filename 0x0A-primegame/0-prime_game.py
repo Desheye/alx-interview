@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def sieve_of_eratosthenes(n):
     """ Return a list of primes up to n using the Sieve of Eratosthenes """
     primes = [True] * (n + 1)
