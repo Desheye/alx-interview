@@ -13,6 +13,8 @@ def is_prime(n):
     Returns:
         bool: True if the number is prime, False otherwise.
     """
+    if n < 2:
+        return False
     for i in range(2, int(n ** 0.5) + 1):
         if n % i == 0:
             return False
@@ -26,16 +28,13 @@ def compute_primes(limit, primes):
         limit (int): Maximum number to check for primes.
         primes (list): List to store the primes.
     """
-    last_prime = primes[-1]
-    if limit > last_prime:
-        for i in range(last_prime + 1, limit + 1):
-            if is_prime(i):
-                primes.append(i)
-            else:
-                primes.append(0)
+    last_prime = primes[-1] if primes else 1
+    for i in range(last_prime + 1, limit + 1):
+        if is_prime(i):
+            primes.append(i)
 
 
-def get_winner(num_rounds, rounds_list):
+def isWinner(num_rounds, rounds_list):
     """
     Determines the player who won the most rounds.
     Args:
@@ -46,21 +45,17 @@ def get_winner(num_rounds, rounds_list):
                      or None if no winner.
     """
     wins = {"Maria": 0, "Ben": 0}
-    prime_nums = [0, 0, 2]
+    primes = []
 
-    compute_primes(max(rounds_list), prime_nums)
+    compute_primes(max(rounds_list), primes)
 
     for rnd in range(num_rounds):
-        prime_count = sum((i != 0 and i <= rounds_list[rnd])
-                          for i in prime_nums[:rounds_list[rnd] + 1])
+        prime_count = sum(1 for p in primes if p <= rounds_list[rnd])
 
-        if prime_count % 2:
-            winner = "Maria"
+        if prime_count % 2 == 1:
+            wins["Maria"] += 1
         else:
-            winner = "Ben"
-
-        if winner:
-            wins[winner] += 1
+            wins["Ben"] += 1
 
     if wins["Maria"] > wins["Ben"]:
         return "Maria"
